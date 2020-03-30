@@ -1,31 +1,33 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+// import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+import { IonicVueRouter } from "@ionic/vue";
+Vue.use(IonicVueRouter);
+
+// Vue.use(VueRouter)
 
 const routes = [
+  { path: "/", redirect: "/home" },
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/home",
+    name: "Home",
+    component: function() {
+      return import(/* webpackChunkName: "home" */ "../views/Home.vue");
+    }
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: "/new",
+    name: "New",
+    component: function() {
+      return import(/* webpackChunkName: "new" */ "../views/New.vue");
     }
   }
-]
+];
 
-const router = new VueRouter({
-  mode: 'history',
+const router = new IonicVueRouter({
+  mode: "history",
   base: process.env.BASE_URL,
   routes
-})
+});
 
-export default router
+export default router;
